@@ -22,7 +22,7 @@ phases:
     commands:
       - echo Build started on `date`
       - gradle --version
-      - chmod +x gradlew
+      - chmod +x ./gradlew
       - ./gradlew :ApiFacility:build
       - docker build -t $REPOSITORY_URI:latest ./Api
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
