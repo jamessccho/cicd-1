@@ -15,9 +15,18 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/
       #- IMAGE_REPO_NAME=${REPO_ECR}
-      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - IMAGE_TAG=${COMMIT_HASH:=latest}
+      #- COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      #- IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
+    steps:
+      - name: Get image tag(version)
+        id: image
+        run: |
+          VERSION=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+          echo VERSION=$VERSION
+          echo "::set-output name=version::\$VERSION"
+        env: 
+          IMAGE_TAG: ${{ steps.image.outputs.version }}
     commands:
       - echo Building the Docker image
       - docker build -t $IMAGE_REPO_NAME .
