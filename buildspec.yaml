@@ -8,7 +8,7 @@ phases:
       - chmod +x ./kubectl
       - mv ./kubectl /usr/local/bin/kubectl
       - mkdir ~/.kube
-      - aws eks update-kubeconfig --region ap-northeast-2 --name sungchul-ca-demo
+      - aws eks update-kubeconfig --region $AWS_DEFAULT_REGION --name $CLUSTER_NAME
       - kubectl get po -n kube-system
   pre_build:
     commands:
