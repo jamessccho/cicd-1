@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: php-apache
-        #image: 825383811744.dkr.ecr.ap-northeast-2.amazonaws.com/php-apache:latest
+        #image: XXXXXXXXXXXX.dkr.ecr.ap-northeast-2.amazonaws.com/php-apache:latest
         image: AWS_ECR_URI
         ports:
         - containerPort: 80
